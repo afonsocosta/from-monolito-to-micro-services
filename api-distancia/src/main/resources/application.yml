@@ -1,18 +1,13 @@
-
 server:
   port: 8082
 
 spring:
   application:
     name: api-distancia
-  datasource:
-    url: jdbc:mysql://localhost/eats_monolito?createDatabaseIfNotExist=true
-    username: root
-    password: admin
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: true
+  data:
+    mongodb:
+      database: eats_distancia
+      port: 27018
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
