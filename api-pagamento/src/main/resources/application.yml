@@ -5,9 +5,9 @@ spring:
   application:
     name: api-pagamento
   datasource:
-    url: jdbc:mysql://localhost/eats_monolito?createDatabaseIfNotExist=true
-    username: root
-    password: admin
+    url: jdbc:mysql://127.0.0.1:3307/eats_pagamento?createDatabaseIfNotExist=true
+    username: pagamento
+    password: pagamento123
   jpa:
     hibernate:
       ddl-auto: validate
