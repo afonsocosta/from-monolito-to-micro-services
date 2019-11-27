@@ -20,6 +20,7 @@
 		<module>eats-administrativo</module>
 		<module>eats-restaurante</module>
 		<module>eats-pedido</module>
+		<module>eats-common</module>
 		<module>eats-seguranca</module>
 		<module>eats-application</module>
 	</modules>

@@ -3,6 +3,7 @@ package br.com.caelum.eats.restaurante;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.com.caelum.eats.exception.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

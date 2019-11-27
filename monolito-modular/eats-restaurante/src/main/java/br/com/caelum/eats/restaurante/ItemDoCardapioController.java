@@ -1,5 +1,6 @@
 package br.com.caelum.eats.restaurante;
 
+import br.com.caelum.eats.exception.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
