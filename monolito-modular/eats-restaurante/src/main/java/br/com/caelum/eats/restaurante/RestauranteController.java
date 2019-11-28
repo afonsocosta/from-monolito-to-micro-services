@@ -3,6 +3,7 @@ package br.com.caelum.eats.restaurante;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.com.caelum.eats.exception.ResourceNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,6 +22,8 @@ class RestauranteController {
 
 	private RestauranteRepository restauranteRepo;
 	private CardapioRepository cardapioRepo;
+
+	private DistanciaRestClient distanciaRestClient;
 
 	@GetMapping("/restaurantes/{id}")
 	RestauranteDto detalha(@PathVariable("id") Long id) {
@@ -60,6 +63,15 @@ class RestauranteController {
 		Restaurante doBD = restauranteRepo.getOne(restaurante.getId());
 		restaurante.setUser(doBD.getUser());
 		restaurante.setAprovado(doBD.getAprovado());
+
+		if(doBD.getAprovado() && (
+				!doBD.getCep().equals(restaurante.getCep()) ||
+						!doBD.getTipoDeCozinha().getId().equals(restaurante.getTipoDeCozinha().getId())
+		)){
+
+			distanciaRestClient.restauranteAtualizado(restaurante);
+		}
+
 		return restauranteRepo.save(restaurante);
 	}
 
@@ -73,5 +85,7 @@ class RestauranteController {
 	@PatchMapping("/admin/restaurantes/{id}")
 	public void aprova(@PathVariable("id") Long id) {
 		restauranteRepo.aprovaPorId(id);
+		Restaurante restaurante = restauranteRepo.getOne(id);
+		distanciaRestClient.novoRestauranteAprovado(restaurante);
 	}
 }

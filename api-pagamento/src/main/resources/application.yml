@@ -15,3 +15,8 @@ spring:
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
+
+configuracao:
+  pedido:
+    service:
+      url: http://localhost:8080

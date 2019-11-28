@@ -1,5 +1,6 @@
 package br.com.devaoc.controller;
 
+import br.com.devaoc.client.PedidoRestClient;
 import br.com.devaoc.dto.PagamentoDto;
 import br.com.devaoc.exception.ResourceNotFoundException;
 import br.com.devaoc.model.Pagamento;
@@ -17,6 +18,8 @@ import java.net.URI;
 public class PagamentoController {
 
 	private PagamentoRepository pagamentoRepo;
+	private PedidoRestClient pedidoRestClient;
+
 
 	@GetMapping("/{id}")
 	public PagamentoDto detalha(@PathVariable("id") Long id) {
@@ -37,6 +40,10 @@ public class PagamentoController {
 		Pagamento pagamento = pagamentoRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException());
 		pagamento.setStatus(Pagamento.Status.CONFIRMADO);
 		pagamentoRepo.save(pagamento);
+
+		Long pedidoId = pagamento.getPedidoId();
+		pedidoRestClient.avisaQueFoiPago(pedidoId);
+
 		return new PagamentoDto(pagamento);
 	}
 
